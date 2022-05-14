@@ -47,8 +47,8 @@
 - pandas
    
 #### 모델 및 학습
-- torch
-- torchvision
+- **torch**
+- **torchvision**
     
 #### 결과 정리
 - matplotlib
