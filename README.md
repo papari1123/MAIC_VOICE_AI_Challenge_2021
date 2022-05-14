@@ -16,7 +16,7 @@
 - **주최 :** 과학기술정보통신부, NIA 한국지능정보사회진흥원
 - **주관 :** 서울대학교병원, EPI LAB
 ### 대회 성적
-**rank :  1/43**.   
+**rank :  1/43 🏆️**.   
 **score : 0.5759 (Macro F1-score)**
 
 <img alt="img_22.png" src="img/img_22.png" width="600"/>
@@ -222,38 +222,38 @@ characteristic diversity는 기존과 동일.
     <img alt="img_26.png" src="img/img_26.png" width="500"/>
 
 ### 추론 결과 및 결론
-- 최종 테스트 결과로 Micro-F1 score = 0.5759 의 정확도를 보임.
-- 경량 CNN모델인 Mini-ResNet을 써도, 제안한 방법들을 통해 최고 성능을 낼 수 있었음.
+- 최종 테스트 결과로 **Micro-F1 score = 0.5759**의 정확도를 보임.
+- 경량 CNN모델인 Mini-ResNet을 써도, 아래와 같이 제안한 방법들을 통해 최고 성능을 낼 수 있었음.
   1. **토큰 구간별 데이터 증강 (tokenization)** 
   2. **메타데이터 기반 Class 세부 분화** 
   3. **Focal Loss 사용** 
   4. **Label masking** 
-- 학습 데이터가 더 많으면, **사전 학습된 복잡도 큰 모델을 사용하여 
-더 높은 정확도와 개선된 일반화 성능을 보일 것으로 사료**됨.
+- 학습 데이터가 더 많으면, 사전 학습된 복잡도 큰 모델을 사용하여 
+더 높은 정확도와 개선된 일반화 성능을 보일 것으로 사료됨.
 
 ## @. reference
-- 모델링 - 이론적 배경
+- **모델링 - 이론적 배경**
   - Resnet34 기반 voice pathology detection model
     - Mohammed MA, Abdulkareem KH, Mostafa SA, Khanapi Abd Ghani M, Maashi MS, Garcia-Zapirain B, Oleagordia I, Alhakami H, AL-Dhief FT. Voice Pathology Detection and Classification Using Convolutional Neural Network Model. Applied Sciences. 2020; 10(11):3723. https://doi.org/10.3390/app10113723
   - Alexnet기반 speech emotion recongition model
     - Zhang H, Gou R, Shang J, Shen F, Wu Y, Dai G. Pre-trained Deep Convolution Neural Network Model With Attention for Speech Emotion Recognition. Front Physiol. 2021;12:643202. Published 2021 Mar 2. doi:10.3389/fphys.2021.643202
 
-- 모델링 - 모델구조
+- **모델링 - 모델구조**
   - mini-resnet 모델 코드 (일부 사용)
     - https://deep-learning-study.tistory.com/534
 
-- 학습방법 - 학습 전략
+- **학습 방법 - 학습 전략**
   - Focal Loss
     - TY Lin et al. Focal Loss for Dense Object Detection. Proceedings of the IEEE International Conference on Computer Vision (ICCV), 2017, pp.2980-2988; https://arxiv.org/pdf/1708.02002.pdf
   - Multi-Class Supervised-Learning
     - SJ Lee, NI Cho. A Study on the Performance Improvement of X-ray Foreign Matter Classification Neural Networks Using Multi-scale CAM. Proceedings of the Korean Society of Broadcast Engineers Conference. 2021; https://www.koreascience.or.kr/article/CFKO202130759684597.page
 
-- 학습방법 - 하이퍼파라미터 튜닝
+- **학습 방법 - 하이퍼파라미터 튜닝**
   - Plateau 그림 출처
     - https://velog.io/@minjung-s/Optimization-Algorithm
   - Information Bottleneck 그림 출처
     - https://stopspoon.tistory.com/57
-- 학습방법 - 시도한 방법
+- **학습 방법 - 시도한 방법**
   - augmentation method review
     - ei, Shengyun & Zou, Shun & Liao, Feifan & Lang, Weimin. (2020). A Comparison on Data Augmentation Methods Based on Deep Learning for Audio Classification. Journal of Physics: Conference Series. 1453. 012085. 10.1088/1742-6596/1453/1/012085. 
   - spec-augment
