@@ -117,24 +117,30 @@ vision 분야에서 사용하는 CNN 기반 모델 사용
 tokenizing을 통해 augmentation을 하더라도, 데이터의 personal pool이 한정되어
 characteristic diversity는 기존과 동일.
 - 따라서, 모델의 일반화 능력을 최대한 끌어올리기 위해 validation 비율은 5%(528 token)로 낮게 설정
-
+<p align="center">
   <img alt="img_25.png" src="img/img_25.png" width="300"/>
-    
+   
+</p>
 - Focal Loss 
   - 클래스 불균형 문제를 해결하기 위해, Retina [3]에서 제안된 Loss function
     - Easy negative에 대한 가중치는 줄임.
     - Hard negative에 대한 가중치는 키움.
-
+<p align="center">
   <img alt="img_30.png" src="img/img_30.png" width="300"/>
+
+</p>
 
 - Multi-Class Supervised Learning  
   - 지도 학습 데이터의 Class 수를 늘릴수를 분류 성능은 좋아짐. [4] 
 
 ### 하이퍼파라미터 튜닝
 - Optimizer는 Adam Optimizer를 사용.
-- Initial learning rate는 1e-3로 하되,
-scheduler로 ReduceLROnPlateau를 사용.
+- Initial learning rate는 1e-3로 하되, scheduler로 ReduceLROnPlateau를 사용.
+<p align="center">
   <img alt="img_41.png" src="img/img_41.png" width="300"/>
+
+</p>
+
 - CNN Kernel size는 Voice Pathology 예측 논문에 사용된 ResNet34 참고하여 유사하게 결정.   
 - CNN channels size는 사용된 class 개수가  21개로 많은 편으로, 최소 128개 이상으로 하되
 1.5배수씩 조정해가며 최적값 설정  
@@ -154,8 +160,9 @@ scheduler로 ReduceLROnPlateau를 사용.
 ### 학습시간
 - 대회에서 지원받은 GPU 기준으로 1 epoch 당 약 89 sec (training 88 sec, validation 1sec) 
 - 학습 시 100 epoch = 100x89 = 8900 sec = 약 2시간 28분.
+<p align="center">
   <img alt="img_33.png" src="img/img_33.png" width="450"/>
-
+</p>
 ### 시도한 방법들
 - General  [5]
   - time stretch (0.8, 1.2배),  gaussian noise 추가
@@ -167,7 +174,10 @@ scheduler로 ReduceLROnPlateau를 사용.
   - 639명 분의 오디오 데이터를 학습에 사용해 personal characteristic diversity가 상대적으로 적음.
   - 학습 데이터가 더 다양하면 성능 개선이 클 것으로 사료됨.
 
-![img_35.png](img/img_35.png)
+<p align="center">
+
+<img alt="img_35.png" src="img/img_35.png" width="500"/>
+</p>
 
 ## 7. 추론 방법 및 결론
 ### 학습 결과
@@ -180,13 +190,14 @@ scheduler로 ReduceLROnPlateau를 사용.
 - Overfitting 방지를 위해
   - early stopping 방법 사용.
   - 추론은 47 epoch weight 사용
-
+<p align="center">
 <img alt="img_37.png" src="img/img_37.png" width="600"/>
 
 |47 epoch|Training|Vaildation|
 |:---:|:---:|:---:|
 |CEloss|0.0694|0.5732|
 |F1 score|0.9478|0.7346|
+</p>
 
 ### 추론 방법 
 - 1 person = 1 batch = 16 token
@@ -198,7 +209,8 @@ scheduler로 ReduceLROnPlateau를 사용.
   - age, sex meta data를 활용해,
   결과로 나올 수 없는 클래스를 masking 함.
     - e.g., 55세 이상 남성의 경우 21개 클래스 중 L1~L6만 사용
-      <img alt="img_26.png" src="img/img_26.png" width="500"/>
+    
+    <img alt="img_26.png" src="img/img_26.png" width="500"/>
 
 ### 추론 결과 및 결론
 - 최종 테스트 결과로 Micro-F1 score = 0.5759 의 정확도를 보임.
