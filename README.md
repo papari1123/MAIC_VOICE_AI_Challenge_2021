@@ -19,11 +19,11 @@
 rank :  **1/43**.   
 score : **0.5759 (Macro F1-score)**    
    
-![img_22.png](img_22.png)
+![img_22.png](img/img_22.png)
 
 ### 전체 프로세스 도식
   -학습모델 / 학습 방법 / 추론 방법)
-![img_29.png](img_29.png)
+![img_29.png](img/img_29.png)
    
 ## 2. 팀빌딩
 - Leader : [thomas11809](https://github.com/thomas11809) 
@@ -56,7 +56,7 @@ score : **0.5759 (Macro F1-score)**
 ### raw 데이터 분석
 - small dataset
 - class imbalance problem
-![img_3.png](img_3.png)
+![img_3.png](img/img_3.png)
 
  |class|Normal|Cancer|Cyst & Polyp|Nodules| Functional dysphonia |Paralysis|  
  |:---:|:---:|:---:|:---:|:--------------------:|:---:|:---:|   
@@ -66,11 +66,11 @@ score : **0.5759 (Macro F1-score)**
    
 - Meta-data 
   - 성별, 나이, 진단명
-  ![img_16.png](img_16.png)    
+  ![img_16.png](img/img_16.png)    
      
 - Annotation data
   - 토큰 정보, 토큰 스킵 여부 / 발음 정확성 / 해당 구간 Frame 정보
-  ![img_15.png](img_15.png)   
+  ![img_15.png](img/img_15.png)   
       
 - 분석에 따른 개선 방안   
   - 각 melspectrom을 토큰별로 나눠서 학습시킴.
@@ -80,12 +80,12 @@ score : **0.5759 (Macro F1-score)**
 ### 데이터 전처리
 - 토큰 구간별 데이터 증강
 : 기존 639개 -> 토큰 증가에 의해 10564개
-![img_13.png](img_13.png)  
+![img_13.png](img/img_13.png)  
      
 
 - Class 세부 분화
 : 성별/나이에 따라 기존 6개 -> 분화 후 21개     
-![img_14.png](img_14.png)   
+![img_14.png](img/img_14.png)   
 - Data Random Augmentation
   - input width 맞추기 위해, 길이 64 pixel 고정
   -길이가 64보다 작은 경우는 zero-padding
@@ -99,7 +99,7 @@ score : **0.5759 (Macro F1-score)**
 - "mini-ResNet" : Robust CNN model as a backbone
   - 멜스펙트럼을 이용한 질병 예측(ResNet34 [1]) 또는 유사 분야인 감정 예측(AlexNet [2])에,
 vision 분야에서 사용하는 CNN 기반 모델 사용
-  ![img_19.png](img_19.png) 
+  ![img_19.png](img/img_19.png) 
   - 본 프로젝트에서는
   Backbone으로 자주 사용되는 ResNet을 차용하되, 
   학습 데이터 개수가 적기 때문에 overfitting을 방지하기 위해 복잡도(Complexity)가 낮은 경량화 모델 사용.
@@ -108,21 +108,21 @@ vision 분야에서 사용하는 CNN 기반 모델 사용
 - Main input : [Batch, 1, mel=256, time=64]
 - Auxiliary input: [Batch, sex, normalized age]	e.g., [32, 1, 0.4]
   - ResNet에서 사용하는 residual block를 사용    
-![img_28.png](img_28.png)
+![img_28.png](img/img_28.png)
 ## 6. 학습 방법
 ### 학습전략
 - Training, validation split
 tokenizing을 통해 augmentation을 하더라도, 데이터의 personal pool이 한정되어
 characteristic diversity는 기존과 동일.
 - 따라서, 모델의 일반화 능력을 최대한 끌어올리기 위해 validation 비율은 5%(528 token)로 낮게 설정
-![img_25.png](img_25.png)
+![img_25.png](img/img_25.png)
     
 - Focal Loss 
   - 클래스 불균형 문제를 해결하기 위해, Retina [3]에서 제안된 Loss function
     - Easy negative에 대한 가중치는 줄임.
     - Hard negative에 대한 가중치는 키움.
   
-  ![img_30.png](img_30.png)   
+  ![img_30.png](img/img_30.png)   
   
 - Multi-Class Supervised Learning  
   - 지도 학습 데이터의 Class 수를 늘릴수를 분류 성능은 좋아짐. [4] 
@@ -131,7 +131,7 @@ characteristic diversity는 기존과 동일.
 - Optimizer는 Adam Optimizer를 사용.
 - Initial learning rate는 1e-3로 하되,
 scheduler로 ReduceLROnPlateau를 사용.
-![img_41.png](img_41.png) 
+![img_41.png](img/img_41.png) 
 - CNN Kernel size는 Voice Pathology 예측 논문에 사용된 ResNet34 참고하여 유사하게 결정.   
 - CNN channels size는 사용된 class 개수가  21개로 많은 편으로, 최소 128개 이상으로 하되
 1.5배수씩 조정해가며 최적값 설정  
@@ -151,7 +151,7 @@ scheduler로 ReduceLROnPlateau를 사용.
 ### 학습시간
 - 대회에서 지원받은 GPU 기준으로 1 epoch 당 약 89 sec (training 88 sec, validation 1sec) 
 - 학습 시 100 epoch = 100x89 = 8900 sec = 약 2시간 28분.
-  ![img_33.png](img_33.png)
+  ![img_33.png](img/img_33.png)
 
 ### 시도한 방법들
 - General  [5]
@@ -164,7 +164,7 @@ scheduler로 ReduceLROnPlateau를 사용.
   - 639명 분의 오디오 데이터를 학습에 사용해 personal characteristic diversity가 상대적으로 적음.
   - 학습 데이터가 더 다양하면 성능 개선이 클 것으로 사료됨.
 
-![img_35.png](img_35.png)
+![img_35.png](img/img_35.png)
 
 ## 7. 추론 방법 및 결론
 ### 학습 결과
@@ -178,7 +178,7 @@ scheduler로 ReduceLROnPlateau를 사용.
   - early stopping 방법 사용.
   - 추론은 47 epoch weight 사용
 
-![img_37.png](img_37.png)
+![img_37.png](img/img_37.png)
 
 |47 epoch|Training|Vaildation|
 |:---:|:---:|:---:|
@@ -195,7 +195,7 @@ scheduler로 ReduceLROnPlateau를 사용.
   - age, sex meta data를 활용해,
   결과로 나올 수 없는 클래스를 masking 함.
     - e.g., 55세 이상 남성의 경우 21개 클래스 중 L1~L6만 사용
-![img_26.png](img_26.png)
+![img_26.png](img/img_26.png)
 
 ### 추론 결과 및 결론
 - 최종 테스트 결과로 Micro-F1 score = 0.5759 의 정확도를 보임.
