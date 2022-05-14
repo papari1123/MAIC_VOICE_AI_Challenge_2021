@@ -16,22 +16,22 @@
 - **주최 :** 과학기술정보통신부, NIA 한국지능정보사회진흥원
 - **주관 :** 서울대학교병원, EPI LAB
 ### 대회 성적
-rank :  **1/43**.   
-score : **0.5759 (Macro F1-score)**    
-   
-![img_22.png](img/img_22.png)
+**rank :  1/43**.   
+**score : 0.5759 (Macro F1-score)**
+
+<img alt="img_22.png" src="img/img_22.png" width="600"/>
 
 ### 전체 프로세스 도식
-  -학습모델 / 학습 방법 / 추론 방법)
+- 학습모델 / 학습 방법 / 추론 방법
 ![img_29.png](img/img_29.png)
    
 ## 2. 팀빌딩
-- Leader : [thomas11809](https://github.com/thomas11809) 
+**- Leader : [thomas11809](https://github.com/thomas11809)** 
   - Ph.D. student at Seoul National University (SNU). /B.S. in Department of ECE, SNU.   
   - Role : data analysis, paper search, data processing, modeling, model test.   
 
     
-- Follower : [papari1123](https://github.com/papari1123) 
+**- Follower : [papari1123](https://github.com/papari1123)** 
   - M.S. in Department of Human ICT convergence in SKKU. / B.S. in Department of Information Display, KHU.
   - Role: paper search, modeling, model test, data processing support.
 
@@ -56,7 +56,8 @@ score : **0.5759 (Macro F1-score)**
 ### raw 데이터 분석
 - small dataset
 - class imbalance problem
-![img_3.png](img/img_3.png)
+
+  <img alt="img_3.png" src="img/img_3.png" width="400"/>
 
  |class|Normal|Cancer|Cyst & Polyp|Nodules| Functional dysphonia |Paralysis|  
  |:---:|:---:|:---:|:---:|:--------------------:|:---:|:---:|   
@@ -66,8 +67,9 @@ score : **0.5759 (Macro F1-score)**
    
 - Meta-data 
   - 성별, 나이, 진단명
-  ![img_16.png](img/img_16.png)    
-     
+  
+  <img alt="img_16.png" src="img/img_16.png" width="400"/>
+
 - Annotation data
   - 토큰 정보, 토큰 스킵 여부 / 발음 정확성 / 해당 구간 Frame 정보
   ![img_15.png](img/img_15.png)   
@@ -85,7 +87,7 @@ score : **0.5759 (Macro F1-score)**
 
 - Class 세부 분화
 : 성별/나이에 따라 기존 6개 -> 분화 후 21개     
-![img_14.png](img/img_14.png)   
+  <img alt="img_14.png" src="img/img_14.png" width="600"/>
 - Data Random Augmentation
   - input width 맞추기 위해, 길이 64 pixel 고정
   -길이가 64보다 작은 경우는 zero-padding
@@ -108,22 +110,23 @@ vision 분야에서 사용하는 CNN 기반 모델 사용
 - Main input : [Batch, 1, mel=256, time=64]
 - Auxiliary input: [Batch, sex, normalized age]	e.g., [32, 1, 0.4]
   - ResNet에서 사용하는 residual block를 사용    
-![img_28.png](img/img_28.png)
+    <p align="center"> <img alt="img_28.png" src="img/img_28.png" width=""/></p>
 ## 6. 학습 방법
 ### 학습전략
 - Training, validation split
 tokenizing을 통해 augmentation을 하더라도, 데이터의 personal pool이 한정되어
 characteristic diversity는 기존과 동일.
 - 따라서, 모델의 일반화 능력을 최대한 끌어올리기 위해 validation 비율은 5%(528 token)로 낮게 설정
-![img_25.png](img/img_25.png)
+
+  <img alt="img_25.png" src="img/img_25.png" width="300"/>
     
 - Focal Loss 
   - 클래스 불균형 문제를 해결하기 위해, Retina [3]에서 제안된 Loss function
     - Easy negative에 대한 가중치는 줄임.
     - Hard negative에 대한 가중치는 키움.
-  
-  ![img_30.png](img/img_30.png)   
-  
+
+  <img alt="img_30.png" src="img/img_30.png" width="300"/>
+
 - Multi-Class Supervised Learning  
   - 지도 학습 데이터의 Class 수를 늘릴수를 분류 성능은 좋아짐. [4] 
 
@@ -131,7 +134,7 @@ characteristic diversity는 기존과 동일.
 - Optimizer는 Adam Optimizer를 사용.
 - Initial learning rate는 1e-3로 하되,
 scheduler로 ReduceLROnPlateau를 사용.
-![img_41.png](img/img_41.png) 
+  <img alt="img_41.png" src="img/img_41.png" width="300"/>
 - CNN Kernel size는 Voice Pathology 예측 논문에 사용된 ResNet34 참고하여 유사하게 결정.   
 - CNN channels size는 사용된 class 개수가  21개로 많은 편으로, 최소 128개 이상으로 하되
 1.5배수씩 조정해가며 최적값 설정  
@@ -151,7 +154,7 @@ scheduler로 ReduceLROnPlateau를 사용.
 ### 학습시간
 - 대회에서 지원받은 GPU 기준으로 1 epoch 당 약 89 sec (training 88 sec, validation 1sec) 
 - 학습 시 100 epoch = 100x89 = 8900 sec = 약 2시간 28분.
-  ![img_33.png](img/img_33.png)
+  <img alt="img_33.png" src="img/img_33.png" width="450"/>
 
 ### 시도한 방법들
 - General  [5]
@@ -178,7 +181,7 @@ scheduler로 ReduceLROnPlateau를 사용.
   - early stopping 방법 사용.
   - 추론은 47 epoch weight 사용
 
-![img_37.png](img/img_37.png)
+<img alt="img_37.png" src="img/img_37.png" width="600"/>
 
 |47 epoch|Training|Vaildation|
 |:---:|:---:|:---:|
@@ -195,7 +198,7 @@ scheduler로 ReduceLROnPlateau를 사용.
   - age, sex meta data를 활용해,
   결과로 나올 수 없는 클래스를 masking 함.
     - e.g., 55세 이상 남성의 경우 21개 클래스 중 L1~L6만 사용
-![img_26.png](img/img_26.png)
+      <img alt="img_26.png" src="img/img_26.png" width="500"/>
 
 ### 추론 결과 및 결론
 - 최종 테스트 결과로 Micro-F1 score = 0.5759 의 정확도를 보임.
