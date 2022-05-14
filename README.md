@@ -146,6 +146,7 @@ characteristic diversity는 기존과 동일.
 1.5배수씩 조정해가며 최적값 설정  
 - FC input size는 Auxiliary input을 이어 붙였을때 적절한 mutual information loss를 가지는 하이퍼파라미터로 구성.
 <center>
+
 |parameter|                                Value                                 |
 |:---:|:--------------------------------------------------------------------:|
 |Learning rate|                                0.001                                 |
@@ -156,7 +157,9 @@ characteristic diversity는 기존과 동일.
 |CNN kernel size|                    first Conv = 7x7, other = 3x3                     |
  |CNN channels size| first Conv = 128, <br/>1st residual block = 192, <br/>2nd residual block = 256 |
 |FC input size|                    first FC = 64, second FC = 32                     |
+
 </center>
+
 ### 학습시간
 - 대회에서 지원받은 GPU 기준으로 1 epoch 당 약 89 sec (training 88 sec, validation 1sec) 
 - 학습 시 100 epoch = 100x89 = 8900 sec = 약 2시간 28분.
