@@ -116,7 +116,7 @@
 - Main input : [Batch, 1, mel=256, time=64]
 - Auxiliary input: [Batch, sex, normalized age]	e.g., [32, 1, 0.4]
   - ResNet에서 사용하는 **residual block**를 사용    
-    <p align="center"> <img alt="img_28.png" src="img/img_28.png" width=""/></p>
+    <p align="center"> <img alt="img_28.png" src="img/img_28.png" width="200"/></p>
 ## 6. 학습 방법
 ### 학습전략
 - Training, validation split
