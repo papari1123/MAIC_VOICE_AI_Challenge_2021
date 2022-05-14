@@ -2,9 +2,9 @@
 
 ## 1. Overview
 ### 대회 개요.
-- **목표 :** 음성 멜-스펙트럼 데이터를 이용한 음성 질환 진단 및 분류   
-  - Task : 6-class classification
-  Class : [ Normal, Cancer, Cyst_and_Polyp, Nodules, Functional_dysphonia, Paralysis ]
+- **목표 :** 음성 **멜-스펙트럼 데이터**를 이용한 **음성 질환 진단 및 분류**   
+  - Task : **6-class** classification    
+  [ Normal, Cancer, Cyst_and_Polyp, Nodules, Functional_dysphonia, Paralysis ]
 - **데이터 :** 음성 멜-스펙트로그램 데이터(csv)  
   - CSV파일은 2차원 배열이며, row(y)값은 128로 고정됨
   - column(x)값은 발화음성의 길이에 따라 달라짐. 
@@ -22,18 +22,19 @@
 <img alt="img_22.png" src="img/img_22.png" width="600"/>
 
 ### 전체 프로세스 도식
-- 학습모델 / 학습 방법 / 추론 방법
+- **학습모델 / 학습 방법 / 추론 방법**   
+
 ![img_29.png](img/img_29.png)
    
 ## 2. 팀빌딩
 **- Leader : [thomas11809](https://github.com/thomas11809)** 
   - Ph.D. student at Seoul National University (SNU). /B.S. in Department of ECE, SNU.   
-  - Role : data analysis, paper search, data processing, modeling, model test.   
+  - **Role :** data analysis, paper search, data processing, modeling, model test.   
 
     
 **- Follower : [papari1123](https://github.com/papari1123)** 
   - M.S. in Department of Human ICT convergence in SKKU. / B.S. in Department of Information Display, KHU.
-  - Role: paper search, modeling, model test, data processing support.
+  - **Role:** paper search, modeling, model test, data processing support.
 
 ## 3. 개발환경
 ### 주요 패키지
@@ -56,8 +57,11 @@
 ### raw 데이터 분석
 - small dataset
 - class imbalance problem
+<p align="center">
 
-  <img alt="img_3.png" src="img/img_3.png" width="400"/>
+<img alt="img_3.png" src="img/img_3.png" width="400"/>
+
+</p>
 
  |class|Normal|Cancer|Cyst & Polyp|Nodules| Functional dysphonia |Paralysis|  
  |:---:|:---:|:---:|:---:|:--------------------:|:---:|:---:|   
@@ -70,46 +74,48 @@
   
   <img alt="img_16.png" src="img/img_16.png" width="400"/>
 
-- Annotation data
-  - 토큰 정보, 토큰 스킵 여부 / 발음 정확성 / 해당 구간 Frame 정보
+- Annotation data   
+  - 토큰 정보, 토큰 스킵 여부 / 발음 정확성 / 해당 구간 Frame 정보   
+    
   ![img_15.png](img/img_15.png)   
       
-- 분석에 따른 개선 방안   
-  - 각 melspectrom을 토큰별로 나눠서 학습시킴.
-  - Focal Loss를 도입해 학습 효율/성능을 높임.
-  - 클래스를 더 분화하여 모델에게 학습.   
+- **분석에 따른 개선 방안**    
+  - 각 melspectrom을 **토큰별로 나눠서 학습**시킴.
+  - **Focal Loss**를 도입해 학습 효율/성능을 높임.
+  - **클래스를 더 분화**하여 모델에게 학습.   
    
 ### 데이터 전처리
 - 토큰 구간별 데이터 증강
-: 기존 639개 -> 토큰 증가에 의해 10564개
+: 기존 639개 -> **토큰 증가에 의해 10564개**
 ![img_13.png](img/img_13.png)  
      
 
 - Class 세부 분화
-: 성별/나이에 따라 기존 6개 -> 분화 후 21개     
+: 성별/나이에 따라 기존 6개 -> **분화 후 21개**        
+    
   <img alt="img_14.png" src="img/img_14.png" width="600"/>
 - Data Random Augmentation
   - input width 맞추기 위해, 길이 64 pixel 고정
-  -길이가 64보다 작은 경우는 zero-padding
-  - 길이가 64보다 큰 경우 랜덤으로 64인 구간 선택, 매 epoch마다 구간이 랜덤하게 선택되어 모델의 일반화 성능이 개선됨.
+  -길이가 **64보다 작은 경우는 zero-padding**
+  - 길이가 **64보다 큰 경우 랜덤으로 64인 구간 선택**, 매 epoch마다 구간이 랜덤하게 선택되어 모델의 일반화 성능이 개선됨.
     
 - Using Meta-data as Auxiliary input
-  - 성별, 나이 데이터를 모델 입력으로 사용
+  - **성별, 나이** 데이터를 모델 입력으로 사용
      
 ## 5. 모델링
 ### 이론적 배경
 - "mini-ResNet" : Robust CNN model as a backbone
-  - 멜스펙트럼을 이용한 질병 예측(ResNet34 [1]) 또는 유사 분야인 감정 예측(AlexNet [2])에,
-vision 분야에서 사용하는 CNN 기반 모델 사용
-  ![img_19.png](img/img_19.png) 
+  - 멜스펙트럼을 이용한 질병 예측(ResNet34) 또는 유사 분야인 감정 예측(AlexNet)에,
+    vision 분야에서 사용하는 CNN 기반 모델 사용
+    <img alt="img_19.png" src="img/img_19.png" width="350"/>
   - 본 프로젝트에서는
-  Backbone으로 자주 사용되는 ResNet을 차용하되, 
-  학습 데이터 개수가 적기 때문에 overfitting을 방지하기 위해 복잡도(Complexity)가 낮은 경량화 모델 사용.
+  Backbone으로 자주 사용되는 **ResNet을 차용**하되, 
+  학습 데이터 개수가 적기 때문에 **overfitting을 방지하기 위해 복잡도(Complexity)가 낮은 경량화 모델** 사용.
  
 ### 모델 구조
 - Main input : [Batch, 1, mel=256, time=64]
 - Auxiliary input: [Batch, sex, normalized age]	e.g., [32, 1, 0.4]
-  - ResNet에서 사용하는 residual block를 사용    
+  - ResNet에서 사용하는 **residual block**를 사용    
     <p align="center"> <img alt="img_28.png" src="img/img_28.png" width=""/></p>
 ## 6. 학습 방법
 ### 학습전략
@@ -122,16 +128,17 @@ characteristic diversity는 기존과 동일.
    
 </p>
 - Focal Loss 
-  - 클래스 불균형 문제를 해결하기 위해, Retina [3]에서 제안된 Loss function
+  - **클래스 불균형 문제를 해결**하기 위해, Retina [3]에서 제안된 Loss function
     - Easy negative에 대한 가중치는 줄임.
     - Hard negative에 대한 가중치는 키움.
+
 <p align="center">
   <img alt="img_30.png" src="img/img_30.png" width="300"/>
 
 </p>
 
 - Multi-Class Supervised Learning  
-  - 지도 학습 데이터의 Class 수를 늘릴수를 분류 성능은 좋아짐. [4] 
+  - 지도 학습 데이터의 Class 수를 늘릴수록 분류 성능은 좋아짐.
 
 ### 하이퍼파라미터 튜닝
 - Optimizer는 Adam Optimizer를 사용.
@@ -164,11 +171,12 @@ characteristic diversity는 기존과 동일.
 <p align="center">
   <img alt="img_33.png" src="img/img_33.png" width="450"/>
 </p>
+
 ### 시도한 방법들
-- General  [5]
+- General
   - time stretch (0.8, 1.2배),  gaussian noise 추가
   - 11073명 분의 오디오 데이터를 사용.
-- SpecAugment [6]
+- SpecAugment
   - speech masking (mel-frequency, time masking)
 - 적용 결과
   - 학습성능 개선 효과가 없었음. 
@@ -189,7 +197,7 @@ characteristic diversity는 기존과 동일.
   - validation CEloss는 0.57 에서 수렴함
   - F1 score는 0.74 에서 수렴함
 - Overfitting 방지를 위해
-  - early stopping 방법 사용.
+  - **early stopping 방법** 사용.
   - 추론은 47 epoch weight 사용
 <p align="center">
 <img alt="img_37.png" src="img/img_37.png" width="600"/>
@@ -203,25 +211,25 @@ characteristic diversity는 기존과 동일.
 ### 추론 방법 
 - 1 person = 1 batch = 16 token
   - 추론 과정에서는 환자 단위로 질병 예측
-  - 각 token 별 maximum logit 값을 기준으로 가장 많이 voting된 클래스를 해당 환자의 질병 예측 결과로 함.
+  - 각 token 별 **maximum logit 값을 기준으로 가장 많이 voting된 클래스를 해당 환자의 질병 예측 결과**로 함.
   - token 길이가 64보다 길 경우, token의 시작지점을 시드 기반 무작위 추출.
   
 - Label masking (sex, age)
   - age, sex meta data를 활용해,
-  결과로 나올 수 없는 클래스를 masking 함.
+  **결과로 나올 수 없는 클래스를 masking** 함.
     - e.g., 55세 이상 남성의 경우 21개 클래스 중 L1~L6만 사용
     
     <img alt="img_26.png" src="img/img_26.png" width="500"/>
 
 ### 추론 결과 및 결론
 - 최종 테스트 결과로 Micro-F1 score = 0.5759 의 정확도를 보임.
-- 경량 CNN모델인 Mini-ResNet을  써도, 제안한 방법들을 통해 최고 성능을 낼 수 있었음.
-  1. 토큰 구간별 데이터 증강 (tokenization) 
-  2. 메타데이터 기반 Class 세부 분화 
-  3. Focal Loss 사용 
-  4. Label masking 
-- 학습 데이터가 더 많으면, 사전 학습된 복잡도 큰 모델을 사용하여 
-더 높은 정확도와 개선된 일반화 성능을 보일 것으로 사료됨.
+- 경량 CNN모델인 Mini-ResNet을 써도, 제안한 방법들을 통해 최고 성능을 낼 수 있었음.
+  1. **토큰 구간별 데이터 증강 (tokenization)** 
+  2. **메타데이터 기반 Class 세부 분화** 
+  3. **Focal Loss 사용** 
+  4. **Label masking** 
+- 학습 데이터가 더 많으면, **사전 학습된 복잡도 큰 모델을 사용하여 
+더 높은 정확도와 개선된 일반화 성능을 보일 것으로 사료**됨.
 
 ## @. reference
 - 모델링 - 이론적 배경
