@@ -1,4 +1,4 @@
-# MAIC_VOICE_AI_Challenge_2021 [link](https://maic.or.kr/competitions/10/leader-board)
+# MAIC_VOICE_AI_Challenge_2021 
 
 ## 1. Overview
 ### 대회 개요.
@@ -15,7 +15,7 @@
 - **대회기간 :** 21.10.29 - 21.11.16
 - **주최 :** 과학기술정보통신부, NIA 한국지능정보사회진흥원
 - **주관 :** 서울대학교병원, EPI LAB
-### 대회 성적
+### 대회 성적 [link](https://maic.or.kr/competitions/10/leader-board)
 **rank :  1/43 🏆️**.   
 **score : 0.5759 (Macro F1-score)**
 
