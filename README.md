@@ -191,10 +191,10 @@ characteristic diversity는 기존과 동일.
 ## 7. 추론 방법 및 결론
 ### 학습 결과
 - 학습이 진행됨에 따라
-  - Training CEloss는 0에 가까워짐
+  - Training Focal loss는 0에 가까워짐
   - Macro F1 score는 1에 가까워짐
 - 45 epoch 이후로
-  - validation CEloss는 0.57 에서 수렴함
+  - validation Focal loss는 0.57 에서 수렴함
   - F1 score는 0.74 에서 수렴함
 - Overfitting 방지를 위해
   - **early stopping 방법** 사용.
